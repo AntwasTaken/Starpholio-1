@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿   { Layout = "_Layout"; // Replace "_Layout" with your layout file name
+}
+
+@section content {
+    <!-- Your page content here -->
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>StarPholio</title>
@@ -129,5 +136,28 @@
             </div>
         </div>
     </div>
+    <script>
+        // Handle form submission using AJAX
+        document.getElementById("registerForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var form = event.target;
+            var formData = new FormData(form);
+
+            // Send the form data to the server using AJAX
+            fetch(form.action, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the server response
+                console.log(data); // Do something with the response data
+            })
+            .catch(error => {
+                console.error(error); // Handle any error that occurred
+            });
+        });
+    </script>
 </body>
 </html>
