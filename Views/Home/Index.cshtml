@@ -1,18 +1,11 @@
-﻿@{
-    Layout = "_Layout"; // Replace "_Layout" with your layout file name
-}
-
-@section content {
-    <!-- Your page content here -->
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>StarPholio</title>
     <style>
         body {
             background: linear-gradient(-45deg, cyan, magenta, yellow);
+            background-attachment: fixed; /* Fixa o plano de fundo */
             color: black;
             font-family: "Helvetica", sans-serif;
             margin: 0;
@@ -21,6 +14,7 @@
         }
 
         .container {
+            width: 100%;
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
@@ -117,32 +111,21 @@
         <div class="frames-container">
             <div class="frame-register">
                 <h2>Register</h2>
-                <form>
-                    <input type="email" placeholder="Email" style="margin-bottom: 10px; width: 100%;" size="30">
-                    <input type="text" placeholder="Username" style="margin-bottom: 10px; width: 100%;" size="30">
-                    <input type="password" placeholder="Password" style="margin-bottom: 10px; width: 100%;" size="30">
-                    <input type="date" placeholder="Date of Birth" style="margin-bottom: 10px; width: 100%;" size="30">
-                    <input type="text" placeholder="Location" style="margin-bottom: 10px; width: 100%;" size="30">
-                    <input type="submit" value="Register">
-                </form>
+                @Html.RenderPartial("_Register") <!-- Adicionado _Register.cshtml -->
             </div>
 
             <div class="frame">
                 <div class="polaroid">
                     <h1>StarPholio</h1>
                     <div class="logo">
-                        <img src="path/to/logo.png" alt="Logo">
+                        <img src="logo/starpholio1.png" alt="Logo">
                     </div>
                 </div>
             </div>
 
             <div class="frame-login">
                 <h2>Login</h2>
-                <form>
-                    <input type="text" placeholder="Username" style="margin-bottom: 10px; width: 100%;" size="30">
-                    <input type="password" placeholder="Password" style="margin-bottom: 10px; width: 100%;" size="30">
-                    <input type="submit" value="Login">
-                </form>
+                @Html.RenderPartial("_Login") <!-- Adicionado _Login.cshtml -->
             </div>
         </div>
     </div>
