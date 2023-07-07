@@ -1,5 +1,4 @@
-﻿   { Layout = "_Layout"; // Replace "_Layout" with your layout file name
-}
+﻿ 
 
 @section content {
     <!-- Your page content here -->
@@ -118,7 +117,7 @@
         <div class="frames-container">
             <div class="frame-register">
                 <h2>Register</h2>
-                @Html.RenderPartial("_Register") <!-- Adicionado _Register.cshtml -->
+                @Html.Partial("_register")
             </div>
 
             <div class="frame">
@@ -132,7 +131,7 @@
 
             <div class="frame-login">
                 <h2>Login</h2>
-                @Html.RenderPartial("_Login") <!-- Adicionado _Login.cshtml -->
+                @Html.Partial("_login")
             </div>
         </div>
     </div>
