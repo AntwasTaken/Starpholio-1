@@ -1,9 +1,4 @@
-﻿ 
-
-@section content {
-    <!-- Your page content here -->
-}
-
+﻿
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,9 +98,17 @@
             margin-top: 20px;
         }
 
-        .frame-register,
-        .frame-login {
+        .frame-register .register-partial {
             width: 400px;
+            height: 700px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        .frame-login .login-partial {
+            width: 400px;
+            height: 700px;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             padding: 40px;
@@ -116,8 +119,9 @@
     <div class="container">
         <div class="frames-container">
             <div class="frame-register">
-                <h2>Register</h2>
-                @Html.Partial("_register")
+                <div class="register-partial">
+                 @Html.Partial("_register")
+                </div>
             </div>
 
             <div class="frame">
@@ -130,8 +134,9 @@
             </div>
 
             <div class="frame-login">
-                <h2>Login</h2>
-                @Html.Partial("_login")
+                <div class="login-partial">
+                 @Html.Partial("_login")
+                </div>
             </div>
         </div>
     </div>
