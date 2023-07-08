@@ -12,8 +12,8 @@ using Starpholio.Data;
 namespace Starpholio.Migrations
 {
     [DbContext(typeof(StarpholioContext))]
-    [Migration("20230706154714_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230708130504_StarpholioDb")]
+    partial class StarpholioDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

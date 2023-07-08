@@ -27,11 +27,11 @@ namespace Starpholio.Controllers
         // POST: Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        /*public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new UserInfo { UserName = model.Email, Email = model.Email };
+                var user = new UserInfo { Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -47,7 +47,8 @@ namespace Starpholio.Controllers
             }
 
             return View(model);
-        }*/
+        }
+
 
         // GET: Account/Login
         public IActionResult Login()
@@ -58,7 +59,7 @@ namespace Starpholio.Controllers
         // POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        /*public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +75,8 @@ namespace Starpholio.Controllers
 
             return View(model);
         }
-        */
+
+
         // Helper method to redirect to a local URL or the homepage if the URL is not local
         private IActionResult RedirectToLocal(string returnUrl)
         {

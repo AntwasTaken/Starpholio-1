@@ -1,12 +1,16 @@
-﻿@page
-@model Starpholio.Views.Shared._loginModel
+﻿@model Starpholio.Models.LoginViewModel
 @{
 }
+
 <div class="frame-login">
     <h2>Login</h2>
     <form>
         <input type="text" placeholder="Username" size="30">
         <input type="password" placeholder="Password" size="30">
+        <div>
+            <input type="checkbox" id="RememberMe" name="RememberMe">
+            <label for="RememberMe">Remember Me</label>
+        </div>
         <input type="submit" value="Login">
     </form>
 </div>

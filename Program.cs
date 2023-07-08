@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Starpholio.Areas.Identity.Data;
 using Starpholio.Data;
+//using Starpholio.Data.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 

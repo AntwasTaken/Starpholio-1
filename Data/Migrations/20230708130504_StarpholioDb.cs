@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Starpholio.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class StarpholioDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
