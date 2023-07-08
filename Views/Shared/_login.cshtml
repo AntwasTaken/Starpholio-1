@@ -11,6 +11,20 @@
             <input type="checkbox" id="RememberMe" name="RememberMe">
             <label for="RememberMe">Remember Me</label>
         </div>
-        <input type="submit" value="Login">
+        
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
 </div>
+<style>
+    .btn-primary {
+        background: linear-gradient(-45deg, cyan, magenta, yellow);
+        transition: background 0.3s ease;
+        outline: none;
+        border: 1px solid black;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(-45deg, yellow, magenta, cyan);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+</style>
