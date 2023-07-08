@@ -72,7 +72,7 @@ namespace Starpholio.Controllers
 //[ValidateAntiForgeryToken]
 public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
 {
-            //return RedirectToAction("Index", "LoggedIN"); // Replace "YourController" with the actual controller name
+            return RedirectToAction("Index", "LoggedIN"); // Replace "YourController" with the actual controller name
 
             if (ModelState.IsValid)
     {
@@ -80,7 +80,7 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
 
         if (result.Succeeded)
         {
-                    return RedirectToAction("Index", "LoggedIN"); // Replace "YourController" with the actual controller name
+                    //return RedirectToAction("Index", "LoggedIN"); // Replace "YourController" with the actual controller name
         }
 
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
