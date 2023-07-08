@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using Starpholio.Areas.Identity.Data;
+using Starpholio.Controllers;
 using Starpholio.Data;
 //using Starpholio.Data.Migrations;
 
@@ -48,6 +49,12 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "LoggedIn",
+    pattern: "LoggedIn/Index",
+    defaults: new { controller = "LoggedIN", action = nameof(LoggedINController.Index) }
+);
 
+app.UseDeveloperExceptionPage();
 app.Run(); // Add this line to keep the application running
 

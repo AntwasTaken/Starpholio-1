@@ -146,22 +146,64 @@
             event.preventDefault(); // Prevent the default form submission
 
             var form = event.target;
+            //var formData = new FormData();
+
+
+            var dateOfBirthValue = form[3].value;
+            var dateOfBirth = new Date(dateOfBirthValue);
+            var isoDateOfBirth = dateOfBirth.toISOString(); // Convert to ISO string
+
+            var formData = new FormData(form);
+            formData.set("DateOfBirth", isoDateOfBirth); // Update FormData with ISO date string
             var formData = new FormData(form);
 
+            // Convert form data to JSON
+            var json = JSON.stringify(Object.fromEntries(formData));
+
+            //console.log(form);
+            //console.log(formData);
+            //console.log(event);
+            //console.log(form[0].value)
+            //formData.set("Username", form[0].value)
+            //console.log(form[1].value)
+            //formData.set("Password", form[1].value)
+            //console.log(form[2].value)
+            //formData.set("Email", form[2].value)
+            //console.log(form[3].value)
+            //formData.set("Location", form[4].value)
+            console.log(json);
+            //form.map((cada)=>{
+            //    console.log(cada)
+            //  })
             // Send the form data to the server using AJAX
             fetch(form.action, {
                 method: "POST",
-                body: formData
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body:
+                //JSON.stringify({ 
+                //    Username: form[0].value,
+                //    Password: form[1].value,
+                //    Email: form[2].value,
+                //    DateOfBirth: dateOfBirth.toISOString(),
+                //    Location: form[4].value,
+                //})
+                json
+                //formData
             })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the server response
-                console.log(data); // Do something with the response data
-            })
-            .catch(error => {
-                console.error(error); // Handle any error that occurred
-            });
+                .then(response =>{
+                console.log(response)
+                })
+                .then(data => {
+                    // Handle the server response
+                    console.log(data); // Do something with the response data
+                })
+                .catch(error => {
+                    console.error(error); // Handle any error that occurred
+                });
         });
     </script>
+
 </body>
 </html>

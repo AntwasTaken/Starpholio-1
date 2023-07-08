@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Starpholio.Areas.Identity.Data;
 using Starpholio.Models;
 using System.Threading.Tasks;
+using Microsoft.Build.Logging;
+using Starpholio.Views.Home;
 
 namespace Starpholio.Controllers
 {
@@ -24,14 +26,22 @@ namespace Starpholio.Controllers
             return View();
         }
 
+        //[ValidateAntiForgeryToken]
         // POST: Account/Register
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
         {
+            
             if (ModelState.IsValid)
             {
-                var user = new UserInfo { Email = model.Email };
+                var user = new UserInfo
+                {
+                    UserName = model.Username,
+                    Email = model.Email,
+                    //DateOfBirth = model.DateOfBirth,     
+                    //Location = model.Location            //TODO: make location and dateofbirth actually fudging work
+                };
+
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -50,31 +60,35 @@ namespace Starpholio.Controllers
         }
 
 
+
         // GET: Account/Login
-        public IActionResult Login()
-        {
-            return View();
-        }
+       public IActionResult Login()
+{
+    return View();
+}
 
-        // POST: Account/Login
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
-        {
+// POST: Account/Login
+[HttpPost]
+//[ValidateAntiForgeryToken]
+public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+{
+            //return RedirectToAction("Index", "LoggedIN"); // Replace "YourController" with the actual controller name
+
             if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+    {
+        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToLocal(returnUrl);
-                }
-
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            }
-
-            return View(model);
+        if (result.Succeeded)
+        {
+                    return RedirectToAction("Index", "LoggedIN"); // Replace "YourController" with the actual controller name
         }
+
+        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+    }
+
+    return View(model);
+}
+
 
 
         // Helper method to redirect to a local URL or the homepage if the URL is not local

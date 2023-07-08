@@ -15,7 +15,7 @@ namespace Starpholio.Areas.Identity.Data;
 public class UserInfo : IdentityUser
 {
 
-    public DateTime DateOfBirth { get; set; }
-    public string Location { get; set; }
+   // public DateTime DateOfBirth { get; set; }
+   // public string Location { get; set; }
 
 }
