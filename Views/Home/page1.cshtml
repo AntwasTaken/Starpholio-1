@@ -13,28 +13,35 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
             display: flex;
             justify-content: space-between;
+            margin: 0 -10px; /* Adiciona uma margem negativa para reduzir a margem entre a borda do navegador e os frames */
+            padding: 0;
         }
 
         .frame {
             flex: 1;
-            height: calc(100vh - 40px);
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
-            padding: 20px;
+            padding: 40px;
             box-sizing: border-box;
             overflow-y: auto;
-            margin-right: 20px;
+            margin: 10px;
         }
 
-        .frame-profile {
+        .frame-profile  {
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 800px;
+            width: 600px
         }
 
         .profile-picture {
@@ -45,6 +52,7 @@
             background-color: black;
             overflow: hidden;
             margin-bottom: 20px;
+
         }
 
             .profile-picture img {
@@ -53,27 +61,30 @@
                 object-fit: cover;
             }
 
-        .frame-polaroid {
-            flex: 2;
-            height: calc(100vh - 40px);
+        .frame-polaroid  {
+            flex: 1;
+            height: 800px;
+            width: 600px;
             background-color: rgba(255, 255, 255, 0.8);
             border: 10px solid silver;
             border-radius: 10px;
-            padding: 40px;
+            padding: 200px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            text-align: center;
         }
 
-        .frame-calendar {
+        .frame-usersprofiles  {
             flex: 1;
-            height: calc(100vh - 40px);
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             padding: 20px;
             box-sizing: border-box;
             overflow-y: auto;
+            height: 800px;
+            width: 600px
         }
 
         .post {
@@ -123,6 +134,12 @@
                 color: red;
             }
 
+        .comment {
+            cursor: pointer;
+        }
+
+            
+
         .logo {
             text-align: center;
             margin-top: 20px;
@@ -147,7 +164,7 @@
             margin-top: 5px;
         }
 
-        .update-btn {
+        .update-btn, .edit-btn {
             padding: 10px 20px;
             background-color: black;
             color: white;
@@ -156,156 +173,134 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 300px;
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.6);
+            outline: none;
+        }
+
+            .search-input::placeholder {
+                color: gray;
+            }
+
+
+
+        .edit-form {
+            display: none;
+            margin-top: 10px;
+        }
+
+            .edit-form input {
+                margin-bottom: 5px;
+            }
+
+        .profile-name {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+     
+           $(document).ready(function () {
+            // Botão "like"
+            $('.like').on('click', function () {
+                $(this).toggleClass('clicked');
+            });
+            // Botão "Editar"
+            $('.edit-btn').on('click', function () {
+                $('.edit-form').toggle();
+                $('.profile-details').toggle();
+            });
+            //Nova foto de perfil
+            $('#profile-picture-input').on('change', function () {
+               
+                var file = this.files[0];
+                
+            });
+            // Botão "Atualizar Perfil"
+            $('.update-btn').on('click', function () {
+                var nameInput = $('.name-input').val();
+                var ageInput = $('.age-input').val();
+                var locationInput = $('.location-input').val();
+                var cameraInput = $('.camera-input').val();
+                var photographyInput = $('.photography-input').val();
+
+                $('.profile-name').text(nameInput);
+                $('.profile-age').text('Age: ' + ageInput);
+                $('.profile-location').text('Location: ' + locationInput);
+                $('.profile-camera').text('Camera: ' + cameraInput);
+                $('.profile-photography').text('Photography: ' + photographyInput);
+
+               
+
+                $('.edit-form').toggle();
+                $('.profile-details').show();
+               
+            });
+            $('.comment').on('click', function () {
+                var $commentInput = $('<input type="text" class="comment-input-text" placeholder="Adicionar um comentário">');
+                var $commentButton = $('<button class="comment-input-btn">Enviar</button>');
+                var $commentContainer = $('<div class="comment-input-container"></div>').append($commentInput).append($commentButton);
+
+                // Limpar qualquer outro campo de entrada de comentário antes de adicionar o novo
+                $('.comment-input-container').remove();
+
+                // Adicionar o campo de entrada de comentário
+                $(this).parent().append($commentContainer);
+            });
+
+            // Evento de clique no botão "Enviar" do campo de entrada de comentário
+            $(document).on('click', '.comment-input-btn', function () {
+                var $commentInput = $(this).prev();
+                var commentText = $commentInput.val(); // Obtém o texto do comentário
+
+                if (commentText.trim() !== '') {
+                    var commentItem = '<li>' + commentText + '</li>'; // Cria um novo item de comentário
+                    $(this).parents('.post').find('.comment-list').append(commentItem); // Adiciona o novo comentário à lista de comentários
+                    $commentInput.val(''); // Limpa o campo de entrada de comentário
+                }
+
+                // Remover o campo de entrada de comentário após adicionar o comentário
+                $(this).parent().remove();
+            });
+        });
+    </script>
 </head>
 <body>
 
     <div class="container">
         <div class="frame frame-profile">
-            <div class="profile-picture">
-                <img src="profile_picture.jpg" alt="Profile Picture">
-            </div>
-            <button class="follow-btn">Follow</button>
-            <div class="follow-counts">
-                <span class="followers">152 followers</span>
-                <br>
-                <span class="following">207 following</span>
-            </div>
-            <h2 class="profile-name">John Doe</h2>
-            <p class="profile-age">Age: 25</p>
-            <p class="profile-location">Location: New York</p>
-            <p>Camera: Canon EOS R</p>
-            <p>Photography: Landscape</p>
-            <button class="update-btn">Update Profile</button>
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" class="name-input">
-            </div>
-            <div>
-                <label for="age">Age:</label>
-                <input type="text" class="age-input">
-            </div>
-            <div>
-                <label for="location">Location:</label>
-                <input type="text" class="location-input">
+            <div class="profile-partial">
+                @Html.Partial("_profile")
             </div>
         </div>
         <div class="frame frame-polaroid">
-            <h1>Recent Posts</h1>
-            <div class="post">
-                <div class="post-profile-picture">
-                    <img src="post_profile_picture1.jpg" alt="Post Profile Picture">
+                <div class="posts-partial">
+                    @Html.Partial("_posts")
                 </div>
-                <div class="post-username">johndoe</div>
-                <div class="post-content">
-                    <p>Beautiful sunset at the beach</p>
-                    <img src="post_image1.jpg" alt="Post Image" width="500">
-                </div>
-                <div class="post-icons">
-                    <span class="like">&#x2764;</span>
-                    <span class="comment">&#x1F4AC;</span>
-                    <span class="share">&#x21A9;</span>
-                </div>
-            </div>
-            <div class="post">
-                <div class="post-profile-picture">
-                    <img src="post_profile_picture2.jpg" alt="Post Profile Picture">
-                </div>
-                <div class="post-username">johndoe</div>
-                <div class="post-content">
-                    <p>Exploring the mountains</p>
-                    <img src="post_image2.jpg" alt="Post Image" width="500">
-                </div>
-                <div class="post-icons">
-                    <span class="like">&#x2764;</span>
-                    <span class="comment">&#x1F4AC;</span>
-                    <span class="share">&#x21A9;</span>
-                </div>
-            </div>
+            
         </div>
-        <div class="frame frame-calendar">
-            <h1>Calendar</h1>
-            <div id="calendar"></div>
-            <h2>Upcoming Events:</h2>
-            <ul id="upcoming-events"></ul>
+        <div class="frame frame-usersprofiles">
+                <div class="usersprofiles-partial">
+                    @Html.Partial("_usersprofiles")
+                </div>
         </div>
     </div>
-    <div class="logo">
-        Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Calendar
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                defaultView: 'month',
-                editable: true,
-                eventLimit: true,
-                events: [
-                    {
-                        title: 'Evento 1',
-                        start: '2023-06-01',
-                        end: '2023-06-03'
-                    },
-                    {
-                        title: 'Evento 2',
-                        start: '2023-06-07',
-                        end: '2023-06-10'
-                    },
-                    {
-                        title: 'Evento 3',
-                        start: '2023-06-12',
-                        end: '2023-06-15'
-                    },
-                    // ... add more events here ...
-                ],
-                eventRender: function (event, element) {
-                    // Add a custom CSS class to the event element
-                    element.addClass('calendar-event');
-                }
-            });
-
-            // Upcoming Events
-            var currentDate = moment().format('YYYY-MM-DD');
-            var upcomingEvents = $('#calendar').fullCalendar('clientEvents', function (event) {
-                return moment(event.start).isSameOrAfter(currentDate);
-            });
-
-            upcomingEvents.sort(function (a, b) {
-                return moment(a.start).diff(moment(b.start));
-            });
-
-            var eventsList = '';
-            for (var i = 0; i < upcomingEvents.length; i++) {
-                eventsList += '<li>' + upcomingEvents[i].title + ': ' + moment(upcomingEvents[i].start).format('DD/MM/YYYY') + '</li>';
-            }
-
-            $('#upcoming-events').html(eventsList);
-
-            // Like Button
-            $('.like').on('click', function () {
-                $(this).toggleClass('clicked');
-            });
-
-            // Update Profile Button
-            $('.update-btn').on('click', function () {
-                var nameInput = $('.name-input').val();
-                var ageInput = $('.age-input').val();
-                var locationInput = $('.location-input').val();
-
-                $('.profile-name').text(nameInput);
-                $('.profile-age').text('Age: ' + ageInput);
-                $('.profile-location').text('Location: ' + locationInput);
-            });
-        });
-    </script>
 </body>
 </html>
