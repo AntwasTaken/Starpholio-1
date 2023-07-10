@@ -3,12 +3,13 @@
 <html>
 <head>
     <title>StarPholio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(-45deg, cyan, magenta, yellow);
             background-attachment: fixed; /* Fixa o plano de fundo */
             color: black;
-            font-family: "Helvetica", sans-serif;
+            font-family: "Comfortaa", sans-serif;
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
@@ -46,7 +47,7 @@
             box-sizing: border-box;
             border: none;
             border-radius: 5px;
-            font-family: "Helvetica", sans-serif;
+            font-family: "Comfortaa", sans-serif;
             transition: transform 0.3s;
             font-size: 16px;
         }
@@ -76,7 +77,7 @@
 
         .polaroid {
             width: 400px;
-            height: 500px;
+            height: 400px;
             position: relative;
             overflow: hidden;
             margin-bottom: 40px;
@@ -85,9 +86,35 @@
             border-radius: 10px;
         }
 
+            .polaroid img {
+                max-width: 400px;
+                max-height: 400px);
+                display: block;
+                margin: 0px;
+                padding: 0px;
+                
+            }
+
+        .caption {
+            text-align: center;
+        }
+
+            .caption .title {
+                font-size: 40px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                font-family: "Comfortaa", sans-serif;
+            }
+
+            .caption .subtitle {
+                font-size: 30px;
+                font-weight: bold;
+                margin: 0;
+                font-family: "Comfortaa", sans-serif;
+            }
         .logo {
             position: absolute;
-            bottom: 40px;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -126,10 +153,13 @@
 
             <div class="frame">
                 <div class="polaroid">
-                    <h1>StarPholio</h1>
                     <div class="logo">
                         <img src="~/imagens/starpholio 1.png" alt="logo">
                     </div>
+                </div>
+                <div class="caption">
+                    <h1 class="title">Starpholio</h1>
+                    <p class="subtitle">O teu Portefólio Online</p>
                 </div>
             </div>
 
