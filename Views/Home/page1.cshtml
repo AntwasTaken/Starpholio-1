@@ -4,17 +4,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
     <style>
-        /* Your existing styles here */
+        
 
         body {
             background: linear-gradient(-45deg, cyan, magenta, yellow);
             color: black;
             font-family: "Comfortaa", sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
             box-sizing: border-box;
             display: flex;
-            justify-content: center;
             align-items: center;
             height: 100vh;
         }
@@ -22,29 +21,46 @@
         .container {
             display: flex;
             justify-content: space-between;
-            margin: 0 -10px; /* Adiciona uma margem negativa para reduzir a margem entre a borda do navegador e os frames */
-            padding: 0;
+            margin: 0; /* Adjust the left margin value here */
+            margin-left:60px;
+            padding:0;
         }
-
-        .frame {
+        .profile-partial, .usersprofiles-partial {
             flex: 1;
+            height: 800px;
+            width: 400px;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             padding: 40px;
             box-sizing: border-box;
             overflow-y: auto;
             margin: 10px;
-        }
-
-        .frame-profile  {
             display: flex;
             flex-direction: column;
+            
             align-items: center;
+            
+        }
+
+        .posts-partial {
+            flex: 1;
+            width: 800px;
             height: 800px;
-            width: 600px
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+           
         }
 
         .profile-picture {
+            display: flex;
             width: 120px;
             height: 120px;
             border: 10px solid black;
@@ -52,6 +68,7 @@
             background-color: black;
             overflow: hidden;
             margin-bottom: 20px;
+            justify-content: center;
 
         }
 
@@ -61,34 +78,8 @@
                 object-fit: cover;
             }
 
-        .frame-polaroid  {
-            flex: 1;
-            height: 800px;
-            width: 600px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 10px solid silver;
-            border-radius: 10px;
-            padding: 200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            text-align: center;
-        }
-
-        .frame-usersprofiles  {
-            flex: 1;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            height: 800px;
-            width: 600px
-        }
-
         .post {
-            width: 700px;
+            width: 600px;
             margin-bottom: 20px;
             padding: 20px;
             background-color: rgba(255, 255, 255, 0.6);
@@ -123,6 +114,9 @@
         }
 
         .post-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-top: 10px;
         }
 
@@ -147,16 +141,6 @@
             opacity: 0.8;
         }
 
-        .follow-btn {
-            padding: 10px 20px;
-            background-color: black;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
         .followers,
         .following {
             font-size: 14px;
@@ -164,7 +148,7 @@
             margin-top: 5px;
         }
 
-        .update-btn, .edit-btn {
+        .update-btn, .edit-btn, .follow-btn {
             padding: 10px 20px;
             background-color: black;
             color: white;
