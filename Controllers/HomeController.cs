@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 using Starpholio.Models;
@@ -10,10 +11,21 @@ namespace Starpholio.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public HomeController(IWebHostEnvironment hostingEnvironment)
         {
-            _logger = logger;
+            _hostingEnvironment = hostingEnvironment;
         }
+
+        public IActionResult GetImage()
+        {
+            string imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "imagens/starpholio 1.png");
+            byte[] imageData = System.IO.File.ReadAllBytes(imagePath);
+            return File(imageData, "image/png");
+        }
+
 
         public IActionResult Index()
         {
