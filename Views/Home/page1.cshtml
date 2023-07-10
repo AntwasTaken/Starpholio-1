@@ -1,10 +1,11 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.js"></script>
+
     <style>
+        /* Your existing styles here */
+
         body {
             background: linear-gradient(-45deg, cyan, magenta, yellow);
             color: black;
@@ -76,7 +77,7 @@
         }
 
         .post {
-            width: 700px; /* Tamanho fixo da largura do post */
+            width: 700px;
             margin-bottom: 20px;
             padding: 20px;
             background-color: rgba(255, 255, 255, 0.6);
@@ -156,78 +157,6 @@
             margin-bottom: 10px;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Calendário
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                defaultView: 'month',
-                editable: true,
-                eventLimit: true,
-                events: [
-                    {
-                        title: 'Evento 1',
-                        start: '2023-06-01',
-                        end: '2023-06-03'
-                    },
-                    {
-                        title: 'Evento 2',
-                        start: '2023-06-07',
-                        end: '2023-06-10'
-                    },
-                    {
-                        title: 'Evento 3',
-                        start: '2023-06-12',
-                        end: '2023-06-15'
-                    },
-                    // ... adicione mais eventos aqui ...
-                ],
-                eventRender: function (event, element) {
-                    // Adiciona uma classe CSS personalizada ao elemento do evento
-                    element.addClass('calendar-event');
-                }
-            });
-
-            // Eventos próximos
-            var currentDate = moment().format('YYYY-MM-DD');
-            var upcomingEvents = $('#calendar').fullCalendar('clientEvents', function (event) {
-                return moment(event.start).isSameOrAfter(currentDate);
-            });
-
-            upcomingEvents.sort(function (a, b) {
-                return moment(a.start).diff(moment(b.start));
-            });
-
-            var eventsList = '';
-            for (var i = 0; i < upcomingEvents.length; i++) {
-                eventsList += '<li>' + upcomingEvents[i].title + ': ' + moment(upcomingEvents[i].start).format('DD/MM/YYYY') + '</li>';
-            }
-
-            document.getElementById('upcoming-events').innerHTML = eventsList;
-
-            // Botão "like"
-            $('.like').on('click', function () {
-                $(this).toggleClass('clicked');
-            });
-
-            // Botão "Atualizar Perfil"
-            $('.update-btn').on('click', function () {
-                var nameInput = $('.name-input').val();
-                var ageInput = $('.age-input').val();
-                var locationInput = $('.location-input').val();
-
-                $('.profile-name').text(nameInput);
-                $('.profile-age').text('Age: ' + ageInput);
-                $('.profile-location').text('Location: ' + locationInput);
-            });
-        });
-    </script>
 </head>
 <body>
 
@@ -304,5 +233,79 @@
     <div class="logo">
         Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Calendar
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultView: 'month',
+                editable: true,
+                eventLimit: true,
+                events: [
+                    {
+                        title: 'Evento 1',
+                        start: '2023-06-01',
+                        end: '2023-06-03'
+                    },
+                    {
+                        title: 'Evento 2',
+                        start: '2023-06-07',
+                        end: '2023-06-10'
+                    },
+                    {
+                        title: 'Evento 3',
+                        start: '2023-06-12',
+                        end: '2023-06-15'
+                    },
+                    // ... add more events here ...
+                ],
+                eventRender: function (event, element) {
+                    // Add a custom CSS class to the event element
+                    element.addClass('calendar-event');
+                }
+            });
+
+            // Upcoming Events
+            var currentDate = moment().format('YYYY-MM-DD');
+            var upcomingEvents = $('#calendar').fullCalendar('clientEvents', function (event) {
+                return moment(event.start).isSameOrAfter(currentDate);
+            });
+
+            upcomingEvents.sort(function (a, b) {
+                return moment(a.start).diff(moment(b.start));
+            });
+
+            var eventsList = '';
+            for (var i = 0; i < upcomingEvents.length; i++) {
+                eventsList += '<li>' + upcomingEvents[i].title + ': ' + moment(upcomingEvents[i].start).format('DD/MM/YYYY') + '</li>';
+            }
+
+            $('#upcoming-events').html(eventsList);
+
+            // Like Button
+            $('.like').on('click', function () {
+                $(this).toggleClass('clicked');
+            });
+
+            // Update Profile Button
+            $('.update-btn').on('click', function () {
+                var nameInput = $('.name-input').val();
+                var ageInput = $('.age-input').val();
+                var locationInput = $('.location-input').val();
+
+                $('.profile-name').text(nameInput);
+                $('.profile-age').text('Age: ' + ageInput);
+                $('.profile-location').text('Location: ' + locationInput);
+            });
+        });
+    </script>
 </body>
 </html>
