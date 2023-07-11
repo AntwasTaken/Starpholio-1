@@ -362,20 +362,39 @@
             // Botão "Atualizar Perfil"
             $(document).on('click', '.update-btn', function () {
                 var postId = $(this).data('post-id');
-                var nameInput = $('.name-input[data-post-id="' + postId + '"]').val();
-                var ageInput = $('.age-input[data-post-id="' + postId + '"]').val();
-                var locationInput = $('.location-input[data-post-id="' + postId + '"]').val();
-                var cameraInput = $('.camera-input[data-post-id="' + postId + '"]').val();
-                var photographyInput = $('.photography-input[data-post-id="' + postId + '"]').val();
+                var nameInput = $('.name-input[data-post-id="' + postId + '"]').val().trim();
+                var ageInput = $('.age-input[data-post-id="' + postId + '"]').val().trim();
+                var locationInput = $('.location-input[data-post-id="' + postId + '"]').val().trim();
+                var cameraInput = $('.camera-input[data-post-id="' + postId + '"]').val().trim();
+                var photographyInput = $('.photography-input[data-post-id="' + postId + '"]').val().trim();
 
-                $('.profile-name[data-post-id="' + postId + '"]').text(nameInput);
-                $('.profile-age[data-post-id="' + postId + '"]').text('Age: ' + ageInput);
-                $('.profile-location[data-post-id="' + postId + '"]').text('Location: ' + locationInput);
-                $('.profile-camera[data-post-id="' + postId + '"]').text('Camera: ' + cameraInput);
-                $('.profile-photography[data-post-id="' + postId + '"]').text('Photography: ' + photographyInput);
+                // Verificar se os campos de entrada estão vazios e manter os valores originais se estiverem
+                if (nameInput === '') {
+                    nameInput = $('.profile-details[data-post-id="' + postId + '"] .profile-name').text();
+                }
+                if (ageInput === '') {
+                    ageInput = $('.profile-details[data-post-id="' + postId + '"] .profile-age').text().replace('Age: ', '');
+                }
+                if (locationInput === '') {
+                    locationInput = $('.profile-details[data-post-id="' + postId + '"] .profile-location').text().replace('Location: ', '');
+                }
+                if (cameraInput === '') {
+                    cameraInput = $('.profile-details[data-post-id="' + postId + '"] .profile-camera').text().replace('Camera: ', '');
+                }
+                if (photographyInput === '') {
+                    photographyInput = $('.profile-details[data-post-id="' + postId + '"] .profile-photography').text().replace('Photography: ', '');
+                }
 
-                $('.edit-form[data-post-id="' + postId + '"]').toggle();
+                // Atualizar as informações do perfil com os valores dos campos de entrada
+                $('.profile-details[data-post-id="' + postId + '"] .profile-name').text(nameInput);
+                $('.profile-details[data-post-id="' + postId + '"] .profile-age').text('Age: ' + ageInput);
+                $('.profile-details[data-post-id="' + postId + '"] .profile-location').text('Location: ' + locationInput);
+                $('.profile-details[data-post-id="' + postId + '"] .profile-camera').text('Camera: ' + cameraInput);
+                $('.profile-details[data-post-id="' + postId + '"] .profile-photography').text('Photography: ' + photographyInput);
+
+                // Alternar a exibição dos elementos
                 $('.profile-details[data-post-id="' + postId + '"]').show();
+                $('.edit-form[data-post-id="' + postId + '"]').hide();
             });
 
            
@@ -421,6 +440,9 @@
                 var postContent = $('.create-post-form[data-post-id="' + postId + '"] textarea').val();
                 var postImages = [];
 
+                // Obter a foto de perfil do perfil atual
+                var profilePictureUrl = $('.profile-details[data-post-id="' + postId + '"] .profile-picture img').attr('src');
+
                 // Obter a lista de arquivos selecionados
                 var files = $('.create-post-form[data-post-id="' + postId + '"] input[type="file"]')[0].files;
 
@@ -440,7 +462,8 @@
 
                             // Adicionar a foto de perfil
                             var profilePictureElement = $('<div class="post-profile-picture"></div>');
-                            // Adicione aqui a lógica para adicionar a foto de perfil ao profilePictureElement
+                            var profilePictureImg = $('<img>').attr('src', profilePictureUrl);
+                            profilePictureElement.append(profilePictureImg);
                             postElement.append(profilePictureElement);
 
                             // Adicionar o conteúdo do post
@@ -455,6 +478,8 @@
                                 postElement.append(imageElement);
                             }
 
+
+
                             // Adicionar o post à lista de posts
                             $('.post-list').append(postElement);
 
@@ -468,7 +493,6 @@
                     // Ler o arquivo como URL de dados
                     reader.readAsDataURL(file);
                 }
-
             });
 
             $(document).on('click', '.aboutus-btn', function () {
