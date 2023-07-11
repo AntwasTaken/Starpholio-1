@@ -14,7 +14,7 @@ namespace Starpholio.Models
 
             categoriesStyle = new HashSet<CategoryStyle>(); // For the choice of picture type(portrait, fashion, sports, nature, urban etc...)
         }
-
+        [Key]
         public int ID { get; set; }
 
         // categoriesStyle categories

@@ -24,7 +24,7 @@ namespace Starpholio.Data
         }
     }
 
-    public class StarpholioContext : IdentityDbContext<UserInfo>
+    public class StarpholioContext : IdentityDbContext<ApplicationUser>
     {
         public StarpholioContext(DbContextOptions<StarpholioContext> options)
             : base(options)
@@ -43,8 +43,18 @@ namespace Starpholio.Data
             base.OnModelCreating(modelBuilder);
 
             // Configure the relationships, constraints, and other configurations
+            modelBuilder.Entity<CategoriesColour>()
+        .HasKey(c => c.ID);
 
-            
+            modelBuilder.Entity<CategoriesStyle>()
+                .HasKey(c => c.ID);
+
+            modelBuilder.Entity<Users1>()
+                .HasKey(u => u.ID);
+
+            modelBuilder.Entity<Posts>()
+                .HasKey(p => p.ID);
+
         }
     }
 

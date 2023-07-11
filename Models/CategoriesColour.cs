@@ -14,7 +14,7 @@ namespace Starpholio.Models
             categoriesColour = new HashSet<CategoryColour>(); // For the choice between Regular colours, Monochromatic and Negative
 
         }
-
+        [Key]
         public int ID { get; set; }
 
         // categoriesColour categories

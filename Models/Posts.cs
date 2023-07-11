@@ -17,7 +17,7 @@ namespace Starpholio.Models
             Votes = new HashSet<Votes>();
             Comments = new HashSet<Comments>();
         }
-
+        [Key]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "o Titulo é de preenchimento obrigatório.")]

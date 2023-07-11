@@ -11,7 +11,6 @@ namespace Starpholio.Models {
             Votes = new HashSet<Votes>();
             Comentarios = new HashSet<Comments>();
         }
-
         public int ID { get; set; }
 
         public string Email { get; set; }

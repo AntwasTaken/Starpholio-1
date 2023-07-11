@@ -10,6 +10,7 @@ namespace Starpholio.Models
 {
     public class Comments
     {
+        [Key]
         public int ID { get; set; }
         [Required(ErrorMessage = "This field must be used.")]
         public string Comment { get; set; }

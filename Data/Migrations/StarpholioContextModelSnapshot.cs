@@ -159,7 +159,7 @@ namespace Starpholio.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Starpholio.Areas.Identity.Data.UserInfo", b =>
+            modelBuilder.Entity("Starpholio.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -344,14 +344,14 @@ namespace Starpholio.Migrations
                     b.Property<bool>("Hidden")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UtilizadorId")
                         .HasColumnType("int");
 
                     b.Property<string>("content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -421,7 +421,7 @@ namespace Starpholio.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Starpholio.Areas.Identity.Data.UserInfo", null)
+                    b.HasOne("Starpholio.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -430,7 +430,7 @@ namespace Starpholio.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Starpholio.Areas.Identity.Data.UserInfo", null)
+                    b.HasOne("Starpholio.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -445,7 +445,7 @@ namespace Starpholio.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Starpholio.Areas.Identity.Data.UserInfo", null)
+                    b.HasOne("Starpholio.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -454,7 +454,7 @@ namespace Starpholio.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Starpholio.Areas.Identity.Data.UserInfo", null)
+                    b.HasOne("Starpholio.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

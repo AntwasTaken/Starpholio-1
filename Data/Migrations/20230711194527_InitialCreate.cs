@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Starpholio.Migrations
 {
-    public partial class StarpholioDb : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,7 @@ namespace Starpholio.Migrations
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
                 });
-
+            //migrationBuilder.Sql("ALTER TABLE AspNetRoles DROP CONSTRAINT FK_AspNetRoles_AspNetUsers_RoleId");
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
