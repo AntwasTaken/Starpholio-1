@@ -132,6 +132,42 @@
             cursor: pointer;
         }
 
+        .comment-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .comment-list li {
+                margin-bottom: 10px;
+            }
+
+        .comment-input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .comment-input-text {
+            width: 200px;
+            height: 30px;
+            padding: 5px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.6);
+            outline: none;
+            margin-right: 5px;
+        }
+
+        .comment-input-btn {
+            padding: 5px 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
 
         .logo {
@@ -304,7 +340,7 @@
     <script>
 
         $(document).ready(function () {
-            var postId = 0; // Identificador inicial para os posts
+            var postId = 2; // Identificador inicial para os posts
 
             // Botão "like"
             $(document).on('click', '.like', function () {
@@ -342,33 +378,35 @@
                 $('.profile-details[data-post-id="' + postId + '"]').show();
             });
 
+           
             $(document).on('click', '.comment', function () {
-                var postId = $(this).data('post-id');
-                var $commentInput = $('<input type="text" class="comment-input-text" placeholder="Adicionar um comentário">');
-                var $commentButton = $('<button class="comment-input-btn">Enviar</button>');
-                var $commentContainer = $('<div class="comment-input-container"></div>').append($commentInput).append($commentButton);
+                   var postId = $(this).data('post-id');
+                   var $commentInput = $('<input type="text" class="comment-input-text" placeholder="Adicionar um comentário">');
+                   var $commentButton = $('<button class="comment-input-btn">Enviar</button>');
+                   var $commentContainer = $('<div class="comment-input-container"></div>').append($commentInput).append($commentButton);
 
                 // Limpar qualquer outro campo de entrada de comentário antes de adicionar o novo
                 $('.comment-input-container[data-post-id="' + postId + '"]').remove();
 
                 // Adicionar o campo de entrada de comentário
+                $(this).parent().find('.comment-icons').css('position', 'relative');
                 $(this).parent().append($commentContainer);
             });
 
             // Evento de clique no botão "Enviar" do campo de entrada de comentário
             $(document).on('click', '.comment-input-btn', function () {
-                var postId = $(this).data('post-id');
+                var postId = $(this).closest('.post').data('post-id');
                 var $commentInput = $(this).prev();
-                var commentText = $commentInput.val(); // Obtém o texto do comentário
+                var commentText = $commentInput.val().trim(); // Obtém o texto do comentário
 
-                if (commentText.trim() !== '') {
+                if (commentText !== '') {
                     var commentItem = '<li>' + commentText + '</li>'; // Cria um novo item de comentário
-                    $('.post[data-post-id="' + postId + '"]').find('.comment-list').append(commentItem); // Adiciona o novo comentário à lista de comentários
+                    $(this).closest('.post').find('.comment-list').append(commentItem); // Adiciona o novo comentário à lista de comentários
                     $commentInput.val(''); // Limpa o campo de entrada de comentário
                 }
 
                 // Remover o campo de entrada de comentário após adicionar o comentário
-                $(this).parent().remove();
+                $(this).closest('.comment-section').find('.comment-input-container').remove();
             });
 
             $(document).on('click', '.add-post-btn', function () {
@@ -400,17 +438,22 @@
                             var postElement = $('<div class="post"></div>');
                             postElement.attr('data-post-id', postId); // Definir o identificador do post
 
+                            // Adicionar a foto de perfil
+                            var profilePictureElement = $('<div class="post-profile-picture"></div>');
+                            // Adicione aqui a lógica para adicionar a foto de perfil ao profilePictureElement
+                            postElement.append(profilePictureElement);
+
+                            // Adicionar o conteúdo do post
+                            var postContentElement = $('<div class="post-content"></div>');
+                            postContentElement.text(postContent);
+                            postElement.append(postContentElement);
+
                             // Adicionar as imagens ao post
                             for (var j = 0; j < postImages.length; j++) {
                                 var imageElement = $('<img class="post-image">');
                                 imageElement.attr('src', postImages[j]);
                                 postElement.append(imageElement);
                             }
-
-                            // Adicionar o conteúdo do post
-                            var contentElement = $('<p class="post-content"></p>');
-                            contentElement.text(postContent);
-                            postElement.append(contentElement);
 
                             // Adicionar o post à lista de posts
                             $('.post-list').append(postElement);
@@ -425,7 +468,9 @@
                     // Ler o arquivo como URL de dados
                     reader.readAsDataURL(file);
                 }
+
             });
+
             $(document).on('click', '.aboutus-btn', function () {
                 var textBox = $('.aboutus-text');
 
@@ -483,6 +528,7 @@
                 @Html.Partial("_search")
             </div>
         </div>
+    </div>
     </>
 </body>
 </html>
