@@ -12,7 +12,7 @@ using Starpholio.Data;
 namespace Starpholio.Migrations
 {
     [DbContext(typeof(StarpholioContext))]
-    [Migration("20230711111640_StarpholioDb")]
+    [Migration("20230711135155_StarpholioDb")]
     partial class StarpholioDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -353,7 +353,7 @@ namespace Starpholio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("image")
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

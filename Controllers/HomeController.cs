@@ -23,7 +23,7 @@ namespace Starpholio.Controllers
         {
             string imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "imagens/starpholio 1.png");
             byte[] imageData = System.IO.File.ReadAllBytes(imagePath);
-            return File(imageData, "image/png");
+            return File(imageData, "Image/png");
         }
 
 

@@ -24,8 +24,8 @@ namespace Starpholio.Models
         public string title { get; set; }
         [Required(ErrorMessage = "o Conteudo é de preenchimento obrigatório.")]
         public string content { get; set; }
-        //[Required(ErrorMessage = "A imagem é de preenchimento obrigatório.")]
-        public string image { get; set; }
+        [Required(ErrorMessage = "A imagem é de preenchimento obrigatório.")]
+        public string Image { get; set; }
         public Boolean Hidden { get; set; }
 
         public Boolean Deleted { get; set; }
