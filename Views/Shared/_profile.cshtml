@@ -1,8 +1,9 @@
 ﻿<div class="frame frame-profile flex-column">
 
-    <div class="profile-details">
+    <div class="profile-details" data-post-id="1">
+        
         <div class="profile-picture">
-            <img src="profile-picture.jpg" alt="Profile Picture">
+            <img src="~/imagens/profile_picture1.jpg" alt="Profile Picture">
         </div>
         <button class="follow-btn">Follow</button>
         <div class="profile-name">John Doe</div>
@@ -10,20 +11,22 @@
         <div class="profile-location">Location: New York</div>
         <div class="profile-camera">Camera: Canon EOS R</div>
         <div class="profile-photography">Photography: Landscape</div>
-        <button class="edit-btn">Editar</button>
+        <button class="edit-btn" data-post-id="1">Editar</button>
     </div>
 
-    <div class="edit-form">
+    <div class="edit-form" data-post-id="1">
+        
         <div class="profile-picture">
-            <img src="profile-picture.jpg" alt="Profile Picture">
+            <img src="~/imagens/profile_picture1.jpg" alt="Profile Picture">
         </div>
         <input type="file" id="profile-picture-input">
-        <input type="text" class="name-input" placeholder="Nome">
-        <input type="text" class="age-input" placeholder="Idade">
-        <input type="text" class="location-input" placeholder="Localização">
-        <input type="text" class="camera-input" placeholder="Camera">
-        <input type="text" class="photography-input" placeholder="Photography">
-        <button class="update-btn">Atualizar Perfil</button>
+        <input type="text" class="name-input" placeholder="Nome" data-post-id="1">
+        <input type="text" class="age-input" placeholder="Idade" data-post-id="1">
+        <input type="text" class="location-input" placeholder="Localização" data-post-id="1">
+        <input type="text" class="camera-input" placeholder="Camera" data-post-id="1">
+        <input type="text" class="photography-input" placeholder="Photography" data-post-id="1">
+        <button class="update-btn" data-post-id="1">Atualizar Perfil</button>
+
     </div>
 
 </div>
