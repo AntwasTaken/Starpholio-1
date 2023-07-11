@@ -12,7 +12,7 @@ using Starpholio.Data;
 namespace Starpholio.Migrations
 {
     [DbContext(typeof(StarpholioContext))]
-    [Migration("20230711011337_StarpholioDb")]
+    [Migration("20230711111640_StarpholioDb")]
     partial class StarpholioDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
