@@ -19,4 +19,5 @@ namespace Starpholio.Models
         public int PostId { get; set; }
         public Posts Post { get; set; }
     }
+
 }
