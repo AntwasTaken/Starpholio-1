@@ -48,16 +48,8 @@ namespace Starpholio.Data
         }
     }
 
-    public class DatabaseSeeder
+    public static class DatabaseSeeder
     {
-
-        private readonly UserManager<UserInfo> _userManager;
-
-        public DatabaseSeeder(UserManager<UserInfo> userManager)
-        {
-            _userManager = userManager;
-        }
-
 
 
         public static void SeedData(StarpholioContext context, IServiceScopeFactory scopeFactory)
@@ -67,8 +59,6 @@ namespace Starpholio.Data
             using var scope = scopeFactory.CreateScope();
             var services = scope.ServiceProvider;
             var dbContext = services.GetRequiredService<StarpholioContext>();
-            await SeedUsers(context);
-
 
         }
 

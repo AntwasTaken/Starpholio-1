@@ -29,9 +29,9 @@ namespace Starpholio.Controllers
         //[ValidateAntiForgeryToken]
         // POST: Account/Register
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
-            
+
             if (ModelState.IsValid)
             {
                 var user = new UserInfo
@@ -62,35 +62,32 @@ namespace Starpholio.Controllers
 
 
         // GET: Account/Login
-       public IActionResult Login()
-{
-    return View();
-}
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         // POST: Account/Login
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            return RedirectToAction("Index", "LoggedIN"); // Replace "YourController" with the actual controller name
+
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
-                    // Authentication successful, you can redirect the user to the desired page.
-                    
-                    return RedirectToAction("Index", "LoggedIN");
+                    //return RedirectToAction("Index", "LoggedIN"); // Replace "YourController" with the actual controller name
                 }
 
-                // Authentication failed, add a model error to display an error message.
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
 
-            // If the model state is invalid or authentication failed, return the login view with the model.
             return View(model);
         }
-
 
 
 
