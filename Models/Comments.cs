@@ -11,7 +11,7 @@ namespace Starpholio.Models
     public class Comments
     {
         public int ID { get; set; }
-        [Required(ErrorMessage = "o Comentário é de preenchimento obrigatório.")]
+        [Required(ErrorMessage = "This field must be used.")]
         public string Comment { get; set; }
 
         public DateTime DataDoComentario { get; set; }

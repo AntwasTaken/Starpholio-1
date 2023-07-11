@@ -12,7 +12,7 @@ using Starpholio.Data;
 namespace Starpholio.Migrations
 {
     [DbContext(typeof(StarpholioContext))]
-    [Migration("20230708155727_StarpholioDb")]
+    [Migration("20230711011337_StarpholioDb")]
     partial class StarpholioDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -173,19 +173,12 @@ namespace Starpholio.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

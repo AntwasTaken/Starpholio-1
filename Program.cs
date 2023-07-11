@@ -4,7 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Starpholio.Areas.Identity.Data;
 using Starpholio.Controllers;
 using Starpholio.Data;
-//using Starpholio.Data.Migrations;
+using Starpholio.Models;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,10 +32,17 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var dbContext = services.GetRequiredService<StarpholioContext>();
+var scopeFactory = services.GetRequiredService<IServiceScopeFactory>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
+    // Call SeedData method
+    DatabaseSeeder.SeedData(dbContext, scopeFactory);
 }
 else
 {
@@ -57,4 +69,3 @@ app.MapControllerRoute(
 
 app.UseDeveloperExceptionPage();
 app.Run(); // Add this line to keep the application running
-
