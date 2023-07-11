@@ -48,8 +48,18 @@ namespace Starpholio.Data
         }
     }
 
-    public static class DatabaseSeeder
+    public class DatabaseSeeder
     {
+
+        private readonly UserManager<UserInfo> _userManager;
+
+        public DatabaseSeeder(UserManager<UserInfo> userManager)
+        {
+            _userManager = userManager;
+        }
+
+
+
         public static void SeedData(StarpholioContext context, IServiceScopeFactory scopeFactory)
         {
             
@@ -57,29 +67,34 @@ namespace Starpholio.Data
             using var scope = scopeFactory.CreateScope();
             var services = scope.ServiceProvider;
             var dbContext = services.GetRequiredService<StarpholioContext>();
+            await SeedUsers(context);
 
-            
 
         }
 
-        private static void SeedUsers(StarpholioContext context)
+        private static async Task SeedUsers(StarpholioContext context, UserManager<UserInfo> userManager)
         {
-            var users = new List<Users1>
-            {
-                new Users1 { ID = 1, Email = "Vasco.Borges@gmail.com" },
-                new Users1 { ID = 2, Email = "Andre.Santos@gmail.com" },
-                new Users1 { ID = 3, Email = "Emanuel.Santos@gmail.com" }
-            };
+            var users = new List<UserInfo>
+    {
+        new UserInfo { UserName = "Vasco", Email = "Vasco.Borges@gmail.com" },
+        new UserInfo { UserName = "André", Email = "Andre.Santos@gmail.com" },
+        new UserInfo { UserName = "Emanuel", Email = "Emanuel.Santos@gmail.com" }
+    };
 
             foreach (var user in users)
             {
-                if (!context.Users1.Any(u => u.ID == user.ID))
+                if (!context.Users.Any(u => u.Email == user.Email))
                 {
-                    context.Users1.Add(user);
+                    var result = await userManager.CreateAsync(user, "Teste!234");
+
+                    if (result.Succeeded)
+                    {
+                        // Add any additional user properties or claims here
+
+                        await userManager.AddToRoleAsync(user, "UserRole");
+                    }
                 }
             }
-
-            context.SaveChanges();
         }
 
         private static void SeedCategoriesColour(StarpholioContext context)
