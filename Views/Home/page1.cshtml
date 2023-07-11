@@ -4,7 +4,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
     <style>
-        
+
 
         body {
             background: linear-gradient(-45deg, cyan, magenta, yellow);
@@ -15,20 +15,21 @@
             box-sizing: border-box;
             display: flex;
             align-items: center;
-            height: 100vh;
+            
         }
 
         .container {
             display: flex;
-            justify-content: space-between;
             margin: 0; /* Adjust the left margin value here */
             margin-left:60px;
-            padding:0;
+            padding: 0;
+       
         }
-        .profile-partial, .usersprofiles-partial {
+
+        .profile-partial,.search-partial {
             flex: 1;
             height: 800px;
-            width: 400px;
+            min-width: 400px;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             padding: 40px;
@@ -37,14 +38,14 @@
             margin: 10px;
             display: flex;
             flex-direction: column;
-            
             align-items: center;
-            
         }
 
+        
+         
         .posts-partial {
             flex: 1;
-            width: 800px;
+            min-width: 700px;
             height: 800px;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
@@ -56,7 +57,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-           
         }
 
         .profile-picture {
@@ -69,7 +69,6 @@
             overflow: hidden;
             margin-bottom: 20px;
             justify-content: center;
-
         }
 
             .profile-picture img {
@@ -132,7 +131,7 @@
             cursor: pointer;
         }
 
-            
+
 
         .logo {
             text-align: center;
@@ -196,54 +195,119 @@
             text-align: center;
         }
 
-        
+        .add-post-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .add-post-btn {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            background-image: url("imagens/mais.png");
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+        .create-post-form {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            width: 300px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+            .create-post-form textarea {
+                width: 100%;
+                height: 80px;
+                resize: none;
+                margin-bottom: 10px;
+            }
+
+            .create-post-form input[type="file"] {
+                margin-bottom: 10px;
+            }
+
+            .create-post-form button {
+                padding: 5px 10px;
+                background-color: black;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .post-image {
+              max-width: 100%;
+              height: auto;
+             margin-bottom: 10px;
+             }
+
+             .post-list {
+                display: flex;
+                flex-direction: column-reverse;
+                 }
+
+             .post-list .post {
+                margin-bottom: 20px;
+            }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-     
-           $(document).ready(function () {
+
+        $(document).ready(function () {
+            var postId = 0; // Identificador inicial para os posts
+
             // Botão "like"
-            $('.like').on('click', function () {
+            $(document).on('click', '.like', function () {
                 $(this).toggleClass('clicked');
             });
+
             // Botão "Editar"
-            $('.edit-btn').on('click', function () {
-                $('.edit-form').toggle();
-                $('.profile-details').toggle();
+            $(document).on('click', '.edit-btn', function () {
+                var postId = $(this).data('post-id');
+                $('.edit-form[data-post-id="' + postId + '"]').toggle();
+                $('.profile-details[data-post-id="' + postId + '"]').toggle();
             });
-            //Nova foto de perfil
-            $('#profile-picture-input').on('change', function () {
-               
+
+            // Nova foto de perfil
+            $(document).on('change', '#profile-picture-input', function () {
                 var file = this.files[0];
-                
             });
+
             // Botão "Atualizar Perfil"
-            $('.update-btn').on('click', function () {
-                var nameInput = $('.name-input').val();
-                var ageInput = $('.age-input').val();
-                var locationInput = $('.location-input').val();
-                var cameraInput = $('.camera-input').val();
-                var photographyInput = $('.photography-input').val();
+            $(document).on('click', '.update-btn', function () {
+                var postId = $(this).data('post-id');
+                var nameInput = $('.name-input[data-post-id="' + postId + '"]').val();
+                var ageInput = $('.age-input[data-post-id="' + postId + '"]').val();
+                var locationInput = $('.location-input[data-post-id="' + postId + '"]').val();
+                var cameraInput = $('.camera-input[data-post-id="' + postId + '"]').val();
+                var photographyInput = $('.photography-input[data-post-id="' + postId + '"]').val();
 
-                $('.profile-name').text(nameInput);
-                $('.profile-age').text('Age: ' + ageInput);
-                $('.profile-location').text('Location: ' + locationInput);
-                $('.profile-camera').text('Camera: ' + cameraInput);
-                $('.profile-photography').text('Photography: ' + photographyInput);
+                $('.profile-name[data-post-id="' + postId + '"]').text(nameInput);
+                $('.profile-age[data-post-id="' + postId + '"]').text('Age: ' + ageInput);
+                $('.profile-location[data-post-id="' + postId + '"]').text('Location: ' + locationInput);
+                $('.profile-camera[data-post-id="' + postId + '"]').text('Camera: ' + cameraInput);
+                $('.profile-photography[data-post-id="' + postId + '"]').text('Photography: ' + photographyInput);
 
-               
-
-                $('.edit-form').toggle();
-                $('.profile-details').show();
-               
+                $('.edit-form[data-post-id="' + postId + '"]').toggle();
+                $('.profile-details[data-post-id="' + postId + '"]').show();
             });
-            $('.comment').on('click', function () {
+
+            $(document).on('click', '.comment', function () {
+                var postId = $(this).data('post-id');
                 var $commentInput = $('<input type="text" class="comment-input-text" placeholder="Adicionar um comentário">');
                 var $commentButton = $('<button class="comment-input-btn">Enviar</button>');
                 var $commentContainer = $('<div class="comment-input-container"></div>').append($commentInput).append($commentButton);
 
                 // Limpar qualquer outro campo de entrada de comentário antes de adicionar o novo
-                $('.comment-input-container').remove();
+                $('.comment-input-container[data-post-id="' + postId + '"]').remove();
 
                 // Adicionar o campo de entrada de comentário
                 $(this).parent().append($commentContainer);
@@ -251,19 +315,78 @@
 
             // Evento de clique no botão "Enviar" do campo de entrada de comentário
             $(document).on('click', '.comment-input-btn', function () {
+                var postId = $(this).data('post-id');
                 var $commentInput = $(this).prev();
                 var commentText = $commentInput.val(); // Obtém o texto do comentário
 
                 if (commentText.trim() !== '') {
                     var commentItem = '<li>' + commentText + '</li>'; // Cria um novo item de comentário
-                    $(this).parents('.post').find('.comment-list').append(commentItem); // Adiciona o novo comentário à lista de comentários
+                    $('.post[data-post-id="' + postId + '"]').find('.comment-list').append(commentItem); // Adiciona o novo comentário à lista de comentários
                     $commentInput.val(''); // Limpa o campo de entrada de comentário
                 }
 
                 // Remover o campo de entrada de comentário após adicionar o comentário
                 $(this).parent().remove();
             });
+
+            $(document).on('click', '.add-post-btn', function () {
+                postId++; // Incrementar o identificador do post
+                $('.create-post-form').attr('data-post-id', postId); // Definir o identificador do post no formulário de criação de post
+                $('.create-post-form[data-post-id="' + postId + '"]').toggle();
+            });
+
+            // Lógica de envio do formulário de criação de post
+            $(document).on('click', '.create-post-form button', function () {
+                var postId = $(this).closest('.create-post-form').data('post-id');
+                var postContent = $('.create-post-form[data-post-id="' + postId + '"] textarea').val();
+                var postImages = [];
+
+                // Obter a lista de arquivos selecionados
+                var files = $('.create-post-form[data-post-id="' + postId + '"] input[type="file"]')[0].files;
+
+                // Ler cada arquivo selecionado e adicioná-lo à lista de imagens
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        postImages.push(e.target.result);
+
+                        // Verificar se todas as imagens foram carregadas
+                        if (postImages.length === files.length) {
+                            // Criar o elemento de post com as imagens e conteúdo
+                            var postElement = $('<div class="post"></div>');
+                            postElement.attr('data-post-id', postId); // Definir o identificador do post
+
+                            // Adicionar as imagens ao post
+                            for (var j = 0; j < postImages.length; j++) {
+                                var imageElement = $('<img class="post-image">');
+                                imageElement.attr('src', postImages[j]);
+                                postElement.append(imageElement);
+                            }
+
+                            // Adicionar o conteúdo do post
+                            var contentElement = $('<p class="post-content"></p>');
+                            contentElement.text(postContent);
+                            postElement.append(contentElement);
+
+                            // Adicionar o post à lista de posts
+                            $('.post-list').prepend(postElement);
+
+                            // Limpar o formulário de criação de post
+                            $('.create-post-form[data-post-id="' + postId + '"] textarea').val('');
+                            $('.create-post-form[data-post-id="' + postId + '"] input[type="file"]').val('');
+                            $('.create-post-form[data-post-id="' + postId + '"]').hide();
+                        }
+                    };
+
+                    // Ler o arquivo como URL de dados
+                    reader.readAsDataURL(file);
+                }
+            });
         });
+
+
     </script>
 </head>
 <body>
@@ -275,16 +398,16 @@
             </div>
         </div>
         <div class="frame frame-polaroid">
-                <div class="posts-partial">
-                    @Html.Partial("_posts")
-                </div>
-            
+            <div class="posts-partial">
+                @Html.Partial("_posts")
+            </div>
         </div>
-        <div class="frame frame-usersprofiles">
-                <div class="usersprofiles-partial">
-                    @Html.Partial("_usersprofiles")
-                </div>
+        <div class="frame frame-search">
+            <div class="search-partial">
+                @Html.Partial("_search")
+            </div>
         </div>
     </div>
 </body>
 </html>
+
